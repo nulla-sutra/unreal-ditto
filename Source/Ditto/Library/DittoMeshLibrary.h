@@ -14,6 +14,7 @@ class DITTO_API UDittoMeshLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
+public:
     UFUNCTION(BlueprintCallable, Category="Ditto | Mesh")
     static USkeletalMesh* MergeSkeletonWithDummyMesh(TArray<USkeletalMesh*> Meshes);
 };

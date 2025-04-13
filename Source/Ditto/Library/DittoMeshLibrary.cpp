@@ -35,21 +35,20 @@ USkeletalMesh* UDittoMeshLibrary::MergeSkeletonWithDummyMesh(TArray<USkeletalMes
         }
     }
 
-    if (MergeParams.SkeletonsToMerge.Num() == 0)
-    {
-        checkNoEntry();
-        return nullptr;
-    }
+    USkeleton* FinalSkeleton = FirstSkeleton;
 
-    const auto MergedSkeleton = USkeletalMergingLibrary::MergeSkeletons(MergeParams);
+    if (MergeParams.SkeletonsToMerge.Num() > 1)
+    {
+        FinalSkeleton = USkeletalMergingLibrary::MergeSkeletons(MergeParams);
+    }
 
     const auto Dummy = NewObject<USkeletalMesh>();
     Dummy->AllocateResourceForRendering();
     Dummy->ReleaseResources();
     Dummy->ReleaseResourcesFence.Wait();
 
-    Dummy->SetRefSkeleton(MergedSkeleton->GetReferenceSkeleton());
-    Dummy->SetSkeleton(MergedSkeleton);
+    Dummy->SetRefSkeleton(FinalSkeleton->GetReferenceSkeleton());
+    Dummy->SetSkeleton(FinalSkeleton);
 
     const auto Resource = Dummy->GetResourceForRendering();
     auto& LODRenderData = *new FSkeletalMeshLODRenderData;
@@ -65,7 +64,7 @@ USkeletalMesh* UDittoMeshLibrary::MergeSkeletonWithDummyMesh(TArray<USkeletalMes
                 for (auto&& RequiredBoneIndex : LodData->RequiredBones)
                 {
                     const auto BoneName = Mesh->GetRefSkeleton().GetBoneName(RequiredBoneIndex);
-                    const auto NewIndex = MergedSkeleton->GetReferenceSkeleton().FindBoneIndex(BoneName);
+                    const auto NewIndex = FinalSkeleton->GetReferenceSkeleton().FindBoneIndex(BoneName);
                     if ((NewIndex >= 0))
                     {
                         LODRenderData.RequiredBones.AddUnique(NewIndex);
