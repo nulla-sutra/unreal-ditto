@@ -39,6 +39,8 @@ public class Ditto : ModuleRules
 				"Slate",
 				"SlateCore", 
                 "SkeletalMerging",
+                "RenderCore",
+                "RHI"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
