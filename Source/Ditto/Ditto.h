@@ -4,7 +4,7 @@
 
 #include "Modules/ModuleManager.h"
 
-class FDittoModule : public IModuleInterface
+class FDittoModule final : public IModuleInterface
 {
 public:
 
