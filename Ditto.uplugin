@@ -25,6 +25,16 @@
       "Name": "SkeletalMerging",
       "Enabled": true,
       "Optional": false
+    },
+    {
+      "Name": "Combee",
+      "Enabled": true,
+      "Optional": false
+    },
+    {
+      "Name": "UE5Coro",
+      "Optional": true,
+      "Enabled": true
     }
   ]
 }
