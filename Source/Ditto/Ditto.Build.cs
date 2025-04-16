@@ -6,7 +6,7 @@ public class Ditto : ModuleRules
 {
 	public Ditto(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicIncludePaths.AddRange(
 			new string[]
@@ -25,7 +25,7 @@ public class Ditto : ModuleRules
 
 
 		PublicDependencyModuleNames.AddRange(
-			new string[]
+			new[]
 			{
 				"Core",
 				// ... add other public dependencies that you statically link with here ...
@@ -34,7 +34,7 @@ public class Ditto : ModuleRules
 
 
 		PrivateDependencyModuleNames.AddRange(
-			new string[]
+			new[]
 			{
 				"CoreUObject",
 				"Engine",
