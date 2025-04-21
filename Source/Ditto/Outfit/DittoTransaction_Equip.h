@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DittoOutfitTypes.h"
-#include "Combee/Framework/Transaction/CombeeTransaction.h"
+#include "CombeeTransaction/Transaction/CombeeTransaction.h"
 #include "DittoTransaction_Equip.generated.h"
 
 USTRUCT(BlueprintType)

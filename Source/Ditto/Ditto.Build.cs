@@ -33,6 +33,7 @@ public class Ditto : ModuleRules
 				"Combee",
 				"CombeeUse",
 				"CombeePresets",
+				"CombeeTransaction",
 
 				"UE5Coro",
 				"MutableRuntime",

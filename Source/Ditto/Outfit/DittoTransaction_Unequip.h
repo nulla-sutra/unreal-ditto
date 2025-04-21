@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "DittoOutfitTypes.h"
-#include "Combee/Framework/Transaction/CombeeTransaction.h"
+#include "CombeeTransaction/Transaction/CombeeTransaction.h"
 #include "DittoTransaction_Unequip.generated.h"
 
 USTRUCT(BlueprintType)
 struct DITTO_API FDittoOutfitTransactionPayload_Unequip : public FDittoOutfitTransactionPayload
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 };
 
 
@@ -20,9 +20,9 @@ struct DITTO_API FDittoOutfitTransactionPayload_Unequip : public FDittoOutfitTra
 UCLASS()
 class DITTO_API UDittoTransaction_Unequip : public UCombeeTransaction
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	using FPayloadType = FDittoOutfitTransactionPayload_Unequip;
+    using FPayloadType = FDittoOutfitTransactionPayload_Unequip;
 
-	virtual void OnExecute_Implementation() override;
+    virtual void OnExecute_Implementation() override;
 };
