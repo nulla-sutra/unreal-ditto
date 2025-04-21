@@ -6,7 +6,7 @@
 #include "DittoOutfits.h"
 #include "CombeePresets/Common/Transactions/CombeeTransaction_Move.h"
 
-void UDittoTransaction_Unequip::K2_OnExecute_Implementation()
+void UDittoTransaction_Unequip::OnExecute_Implementation()
 {
 	const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
 

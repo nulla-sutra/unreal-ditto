@@ -24,5 +24,5 @@ class DITTO_API UDittoTransaction_Unequip : public UCombeeTransaction
 
 	using FPayloadType = FDittoOutfitTransactionPayload_Unequip;
 
-	virtual void K2_OnExecute_Implementation() override;
+	virtual void OnExecute_Implementation() override;
 };

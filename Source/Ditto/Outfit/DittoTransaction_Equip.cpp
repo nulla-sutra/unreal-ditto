@@ -10,7 +10,7 @@
 #include "Combee/Core/Item/CombeeItemInterface.h"
 #include "CombeePresets/Common/Transactions/CombeeTransaction_Swap.h"
 
-void UDittoTransaction_Equip::K2_OnExecute_Implementation()
+void UDittoTransaction_Equip::OnExecute_Implementation()
 {
 	const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
 

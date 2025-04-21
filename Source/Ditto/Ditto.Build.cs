@@ -28,6 +28,15 @@ public class Ditto : ModuleRules
 			new[]
 			{
 				"Core",
+				"GameplayTags",
+
+				"Combee",
+				"CombeeUse",
+				"CombeePresets",
+
+				"UE5Coro",
+				"MutableRuntime",
+				"CustomizableObject"
 				// ... add other public dependencies that you statically link with here ...
 			}
 		);
@@ -46,13 +55,6 @@ public class Ditto : ModuleRules
 				"NetCommon",
 				"NetCore",
 
-				"GameplayTags",
-
-				"Combee",
-				"CombeeUse",
-				"CombeePresets",
-
-				"UE5Coro"
 				// ... add private dependencies that you statically link with here ...	
 			}
 		);
