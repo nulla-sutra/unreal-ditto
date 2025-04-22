@@ -51,8 +51,6 @@ public class Ditto : ModuleRules
 				"Slate",
 				"SlateCore",
 				"SkeletalMerging",
-				"RenderCore",
-				"RHI",
 				"NetCommon",
 				"NetCore",
 

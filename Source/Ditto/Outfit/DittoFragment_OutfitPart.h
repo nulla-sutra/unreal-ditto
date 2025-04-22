@@ -31,11 +31,12 @@ public:
     UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
     void TakeOff(const FInstancedStruct& PartData);
 
-    UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="TakeOff")
-    void K2_TakeOff(const FInstancedStruct& PartData);
-
     UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
     void Wear(const FInstancedStruct& PartData);
+
+protected:
+    UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="TakeOff")
+    void K2_TakeOff(const FInstancedStruct& PartData);
 
     UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="Wear")
     void K2_Wear(const FInstancedStruct& PartData);

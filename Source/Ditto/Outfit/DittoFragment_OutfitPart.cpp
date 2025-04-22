@@ -122,7 +122,7 @@ FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,
 
 void UDittoFragment_OutfitPart::TakeOff_Implementation(const FInstancedStruct& PartData)
 {
-    unimplemented();
+    K2_TakeOff(PartData);
 }
 
 void UDittoFragment_OutfitPart::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
@@ -132,7 +132,7 @@ void UDittoFragment_OutfitPart::K2_TakeOff_Implementation(const FInstancedStruct
 
 void UDittoFragment_OutfitPart::Wear_Implementation(const FInstancedStruct& PartData)
 {
-    unimplemented();
+    K2_Wear(PartData);
 }
 
 void UDittoFragment_OutfitPart::K2_Wear_Implementation(const FInstancedStruct& PartData)
