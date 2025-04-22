@@ -7,6 +7,7 @@
 #include "DittoTransaction_Equip.h"
 #include "DittoTransaction_Unequip.h"
 #include "Combee/Core/Container/CombeeContainer.h"
+#include "Combee/Core/Item/CombeeItemInterface.h"
 #include "CombeeTransaction/Subsystem/CombeeTransactionSubsystem.h"
 #include "CombeeUse/Usable/CombeeUsableTypes.h"
 
@@ -117,6 +118,40 @@ FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,
                                           std::placeholders::_2);
         bSuccess &= Response.State == ECombeeExecutionState::Success;
         co_return ;
+    }
+}
+
+void UDittoFragment_OutfitPart::ProcessOutfitsMutation(UDittoOutfits* OutfitsComponent,
+                                                       const FCombeeCellMutationContext& Context)
+{
+    ensure(OutfitsComponent);
+
+    const auto PartInfo = OutfitsComponent->RetrievePartInfo(Context.TargetIndex);
+    if (!PartInfo.IsValid())
+    {
+        return;
+    }
+
+    const auto& PartData = PartInfo.PartData;
+
+    const auto PreviousItem = Context.PreviousInstance;
+    if (PreviousItem)
+    {
+        const auto Fragment = PreviousItem->FindFragmentByClass<ThisClass>();
+        if (Fragment)
+        {
+            Fragment->TakeOff(PartData);
+        }
+    }
+
+    const auto UpcomingItem = Context.UpcomingInstance;
+    if (UpcomingItem)
+    {
+        const auto Fragment = UpcomingItem->FindFragmentByClass<ThisClass>();
+        if (Fragment)
+        {
+            Fragment->Wear(PartData);
+        }
     }
 }
 

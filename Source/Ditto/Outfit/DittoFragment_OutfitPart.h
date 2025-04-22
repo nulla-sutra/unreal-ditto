@@ -9,6 +9,8 @@
 #include "UE5Coro.h"
 #include "DittoFragment_OutfitPart.generated.h"
 
+struct FCombeeCellMutationContext;
+class UDittoOutfits;
 class UCombeeContainer;
 /**
  * 
@@ -40,4 +42,8 @@ protected:
 
     UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="Wear")
     void K2_Wear(const FInstancedStruct& PartData);
+
+public:
+    UFUNCTION(BlueprintCallable, Category="Ditto | Outfit", BlueprintAuthorityOnly)
+    static void ProcessOutfitsMutation(UDittoOutfits* OutfitsComponent, const FCombeeCellMutationContext& Context);
 };
