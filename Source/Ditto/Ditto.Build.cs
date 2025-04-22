@@ -50,7 +50,6 @@ public class Ditto : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"SkeletalMerging",
 				"NetCommon",
 				"NetCore",
 				"CustomizableObjectEditor",

@@ -22,11 +22,6 @@
   ],
   "Plugins": [
     {
-      "Name": "SkeletalMerging",
-      "Enabled": true,
-      "Optional": false
-    },
-    {
       "Name": "Combee",
       "Enabled": true,
       "Optional": false

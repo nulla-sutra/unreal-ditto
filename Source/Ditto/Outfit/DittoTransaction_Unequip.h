@@ -17,7 +17,7 @@ struct DITTO_API FDittoOutfitTransactionPayload_Unequip : public FDittoOutfitTra
 /**
  * 
  */
-UCLASS()
+UCLASS(DisplayName="Outfit Unequip (Ditto)")
 class DITTO_API UDittoTransaction_Unequip : public UCombeeTransaction
 {
     GENERATED_BODY()

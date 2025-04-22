@@ -10,7 +10,7 @@ class UCustomizableObject;
 /**
  * 
  */
-UCLASS()
+UCLASS(DisplayName="OutfitPart Mutable (Ditto)")
 class DITTO_API UDittoFragment_OutfitPart_Mutable : public UDittoFragment_OutfitPart
 {
     GENERATED_BODY()

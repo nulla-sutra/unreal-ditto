@@ -10,21 +10,21 @@
 USTRUCT(BlueprintType)
 struct DITTO_API FDittoOutfitTransactionPayload_Equip : public FDittoOutfitTransactionPayload
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite)
-	bool bPreferEmpty = true;
+    UPROPERTY(BlueprintReadWrite)
+    bool bPreferEmpty = true;
 };
 
 /**
  * 
  */
-UCLASS()
+UCLASS(DisplayName="Outfit Equip (Ditto)")
 class DITTO_API UDittoTransaction_Equip : public UCombeeTransaction
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	using FPayloadType = FDittoOutfitTransactionPayload_Equip;
+    using FPayloadType = FDittoOutfitTransactionPayload_Equip;
 
-	virtual void OnExecute_Implementation() override;
+    virtual void OnExecute_Implementation() override;
 };
