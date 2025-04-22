@@ -55,31 +55,37 @@ void UDittoFragment_OutfitPart_Mutable::PostEditChangeProperty(struct FPropertyC
 
     if (Property)
     {
-        if (CustomizableObject)
+        if (Property->GetFName() == GET_MEMBER_NAME_CHECKED(ThisClass, CustomizableObject))
         {
-            if (Property->GetFName() == GET_MEMBER_NAME_CHECKED(ThisClass, CustomizableObject))
+            if (CustomizableObject)
             {
                 const auto SourceProperty = UCustomizableObject::StaticClass()->FindPropertyByName("Source");
                 UEdGraph* Graph = nullptr;
                 SourceProperty->GetValue_InContainer(CustomizableObject, &Graph);
 
-                if (Graph)
+                if (!Graph)
                 {
-                    const auto RootNode = Cast<UCustomizableObjectNode>(Graph->Nodes[0]);
-                    if (RootNode)
-                    {
-                        const auto NameProperty = RootNode->GetClass()->FindPropertyByName("ObjectName");
-                        if (NameProperty)
-                        {
-                            NameProperty->GetValue_InContainer(RootNode, &ObjectName);
-                        }
-                    }
+                    goto emptyObjectName;
                 }
+                const auto RootNode = Cast<UCustomizableObjectNode>(Graph->Nodes[0]);
+                if (!RootNode)
+                {
+                    goto emptyObjectName;
+                }
+
+                const auto NameProperty = RootNode->GetClass()->FindPropertyByName("ObjectName");
+                if (!NameProperty)
+                {
+                    goto emptyObjectName;
+                }
+                
+                NameProperty->GetValue_InContainer(RootNode, &ObjectName);
             }
-        }
-        else
-        {
-            ObjectName.Empty();
+            else
+            {
+            emptyObjectName:
+                ObjectName.Empty();
+            }
         }
     }
 }
