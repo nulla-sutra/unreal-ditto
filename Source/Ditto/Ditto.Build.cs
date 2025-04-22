@@ -53,6 +53,7 @@ public class Ditto : ModuleRules
 				"SkeletalMerging",
 				"NetCommon",
 				"NetCore",
+				"CustomizableObjectEditor",
 
 				// ... add private dependencies that you statically link with here ...	
 			}

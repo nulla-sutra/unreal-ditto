@@ -19,7 +19,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     TObjectPtr<UCustomizableObject> CustomizableObject;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FString ObjectName;
 
 protected:
