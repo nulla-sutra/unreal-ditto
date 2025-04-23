@@ -65,25 +65,25 @@ void UDittoFragment_OutfitPart_Mutable::PostEditChangeProperty(struct FPropertyC
 
                 if (!Graph)
                 {
-                    goto emptyObjectName;
+                    goto clear_object_name;
                 }
                 const auto RootNode = Cast<UCustomizableObjectNode>(Graph->Nodes[0]);
                 if (!RootNode)
                 {
-                    goto emptyObjectName;
+                    goto clear_object_name;
                 }
 
                 const auto NameProperty = RootNode->GetClass()->FindPropertyByName("ObjectName");
                 if (!NameProperty)
                 {
-                    goto emptyObjectName;
+                    goto clear_object_name;
                 }
                 
                 NameProperty->GetValue_InContainer(RootNode, &ObjectName);
             }
             else
             {
-            emptyObjectName:
+            clear_object_name:
                 ObjectName.Empty();
             }
         }

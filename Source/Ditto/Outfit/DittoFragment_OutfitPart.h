@@ -21,10 +21,10 @@ class DITTO_API UDittoFragment_OutfitPart : public UCombeeFragment, public IComb
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Ditto | Outfit")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FGameplayTagContainer Part;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Ditto | Outfit")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TArray<TSubclassOf<UCombeeContainer>> Closets;
 
     virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUsePayload>& Payload,
