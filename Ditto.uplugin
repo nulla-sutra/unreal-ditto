@@ -1,40 +1,40 @@
 ﻿{
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0",
-	"FriendlyName": "Ditto",
-	"Description": "",
-	"Category": "Other",
-	"CreatedBy": "tarnishablec",
-	"CreatedByURL": "https://github.com/tarnishablec",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": true,
-	"IsExperimentalVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "Ditto",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		},
-		{
-			"Name": "DittoSkill",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "Combee",
-			"Enabled": true,
-			"Optional": false
-		},
-		{
-			"Name": "UE5Coro",
-			"Optional": true,
-			"Enabled": true
-		}
-	]
+    "FileVersion": 3,
+    "Version": 1,
+    "VersionName": "1.0",
+    "FriendlyName": "Ditto",
+    "Description": "",
+    "Category": "Other",
+    "CreatedBy": "tarnishablec",
+    "CreatedByURL": "https://github.com/tarnishablec",
+    "DocsURL": "",
+    "MarketplaceURL": "",
+    "CanContainContent": true,
+    "IsBetaVersion": true,
+    "IsExperimentalVersion": false,
+    "Installed": false,
+    "Modules": [
+        {
+            "Name": "Ditto",
+            "Type": "Runtime",
+            "LoadingPhase": "Default"
+        }
+    ],
+    "Plugins": [
+        {
+            "Name": "Combee",
+            "Enabled": true,
+            "Optional": false
+        },
+        {
+            "Name": "UE5Coro",
+            "Optional": true,
+            "Enabled": true
+        },
+        {
+            "Name": "Dogars",
+            "Optional": true,
+            "Enabled": true
+        }
+    ]
 }
