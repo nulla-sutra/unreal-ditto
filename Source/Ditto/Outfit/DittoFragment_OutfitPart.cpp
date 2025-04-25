@@ -12,7 +12,7 @@
 #include "CombeeUse/Usable/CombeeUsableTypes.h"
 
 FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,
-                                                TInstancedStruct<FCombeeUsePayload>& Payload,
+                                                TInstancedStruct<FCombeeUseContext>& Payload,
                                                 bool& bSuccess,
                                                 const UE5Coro::TLatentContext<> _)
 {

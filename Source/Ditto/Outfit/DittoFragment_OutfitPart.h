@@ -27,7 +27,7 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TArray<TSubclassOf<UCombeeContainer>> Closets;
 
-    virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUsePayload>& Payload,
+    virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUseContext>& Payload,
                                  bool& bSuccess, const UE5Coro::TLatentContext<> _) override;
 
     UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")

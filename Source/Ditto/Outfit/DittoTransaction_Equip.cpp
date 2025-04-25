@@ -9,6 +9,7 @@
 #include "Combee/Core/Container/CombeeContainer.h"
 #include "Combee/Core/Item/CombeeItemInterface.h"
 #include "CombeePresets/Common/Transactions/CombeeTransaction_Swap.h"
+#include "CombeeTransaction/CombeeTransactionTypes.h"
 
 void UDittoTransaction_Equip::OnExecute_Implementation()
 {
