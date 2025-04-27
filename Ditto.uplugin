@@ -28,12 +28,17 @@
         },
         {
             "Name": "UE5Coro",
-            "Optional": true,
+            "Optional": false,
             "Enabled": true
         },
         {
             "Name": "Dogars",
-            "Optional": true,
+            "Optional": false,
+            "Enabled": true
+        },
+        {
+            "Name": "Mutable",
+            "Optional": false,
             "Enabled": true
         }
     ]
