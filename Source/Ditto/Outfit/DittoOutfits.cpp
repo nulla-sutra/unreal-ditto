@@ -85,7 +85,7 @@ void UDittoOutfits::OnReq_Layout_Implementation()
 {
 }
 
-FDittoOutfitLayoutPart UDittoOutfits::RegisterPart(FGameplayTagContainer Part, const FInstancedStruct& PartData)
+FDittoOutfitLayoutPart UDittoOutfits::RegisterPart(const FGameplayTagContainer Part, const FInstancedStruct& PartData)
 {
     const auto Info = this->Layout.Register(Part, PartData);
     MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, Layout, this);

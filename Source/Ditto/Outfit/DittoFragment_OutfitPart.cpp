@@ -160,9 +160,10 @@ void UDittoFragment_OutfitPart::TakeOff_Implementation(const FInstancedStruct& P
     K2_TakeOff(PartData);
 }
 
-void UDittoFragment_OutfitPart::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
+bool UDittoFragment_OutfitPart::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
 {
     unimplemented();
+    return false;
 }
 
 void UDittoFragment_OutfitPart::Wear_Implementation(const FInstancedStruct& PartData)
@@ -170,7 +171,8 @@ void UDittoFragment_OutfitPart::Wear_Implementation(const FInstancedStruct& Part
     K2_Wear(PartData);
 }
 
-void UDittoFragment_OutfitPart::K2_Wear_Implementation(const FInstancedStruct& PartData)
+bool UDittoFragment_OutfitPart::K2_Wear_Implementation(const FInstancedStruct& PartData)
 {
     unimplemented();
+    return false;
 }

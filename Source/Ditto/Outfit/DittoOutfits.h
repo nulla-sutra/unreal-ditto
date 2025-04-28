@@ -64,7 +64,7 @@ public:
         return Info.IsValid();
     }
 
-    UFUNCTION(BlueprintPure, Category="Outfit", meta=(AutoCreateRefTerm="Index"))
+    UFUNCTION(BlueprintPure, Category="Outfit", meta=(AutoCreateRefTerm="Index,PartType"))
     bool CheckPartTypeCompatible(const FGameplayTagContainer& PartType, const int32& Index) const;
 
 protected:

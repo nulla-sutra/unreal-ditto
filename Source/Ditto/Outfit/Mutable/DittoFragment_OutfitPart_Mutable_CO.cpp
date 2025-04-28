@@ -1,7 +1,7 @@
 ﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 
-#include "DittoFragment_OutfitPart_Mutable.h"
+#include "DittoFragment_OutfitPart_Mutable_CO.h"
 
 #include "DittoPartData_Mutable.h"
 #include "MuCO/CustomizableObject.h"
@@ -12,53 +12,58 @@
 #endif
 
 
-void UDittoFragment_OutfitPart_Mutable::TakeOff_Implementation(const FInstancedStruct& PartData)
+bool UDittoFragment_OutfitPart_Mutable_CO::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
-    if (!Data) return;
+    if (!Data) return false;
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return;
+        return false;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
-    if (Coi->FindIntParameterNameIndex(Data->PartName) != INDEX_NONE)
+    if (Coi && Coi->FindIntParameterNameIndex(Data->PartName) != INDEX_NONE)
     {
-        Component->GetCustomizableObjectInstance()->SetDefaultValue(Data->PartName);
+        Coi->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
+        return true;
     };
+
+    return false;
 }
 
-void UDittoFragment_OutfitPart_Mutable::Wear_Implementation(const FInstancedStruct& PartData)
+bool UDittoFragment_OutfitPart_Mutable_CO::K2_Wear_Implementation(const FInstancedStruct& PartData)
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
     if (!Data || Data->PartName.IsEmpty())
     {
-        TakeOff(PartData);
-        return;
+        K2_TakeOff(PartData);
+        return false;;
     }
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return;
+        return false;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
     const auto NameStr = Data->PartName;
 
-    if (Coi->FindIntParameterNameIndex(NameStr) != INDEX_NONE)
+    if (Coi && Coi->FindIntParameterNameIndex(NameStr) != INDEX_NONE)
     {
-        Component->GetCustomizableObjectInstance()->
-                   SetIntParameterSelectedOption(NameStr, ObjectName);
+        Coi->SetIntParameterSelectedOption(NameStr, ObjectName);
         Component->UpdateSkeletalMeshAsync();
+        return true;
     }
+
+    return false;
 }
 
 #if WITH_EDITOR
-void UDittoFragment_OutfitPart_Mutable::PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent)
+void UDittoFragment_OutfitPart_Mutable_CO::PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent)
 {
     Super::PostEditChangeProperty(PropertyChangedEvent);
 

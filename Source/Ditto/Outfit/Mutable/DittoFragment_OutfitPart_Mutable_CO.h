@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Ditto/Outfit/DittoFragment_OutfitPart.h"
-#include "DittoFragment_OutfitPart_Mutable.generated.h"
+#include "DittoFragment_OutfitPart_Mutable_CO.generated.h"
 
 class UCustomizableObject;
 /**
  * 
  */
-UCLASS(DisplayName="OutfitPart Mutable (Ditto)")
-class DITTO_API UDittoFragment_OutfitPart_Mutable : public UDittoFragment_OutfitPart
+UCLASS(DisplayName="OutfitPart Mutable Customizable Object (Ditto)")
+class DITTO_API UDittoFragment_OutfitPart_Mutable_CO : public UDittoFragment_OutfitPart
 {
     GENERATED_BODY()
 
@@ -23,8 +23,8 @@ public:
     FString ObjectName;
 
 protected:
-    virtual void TakeOff_Implementation(const FInstancedStruct& PartData) override;
-    virtual void Wear_Implementation(const FInstancedStruct& PartData) override;
+    virtual bool K2_TakeOff_Implementation(const FInstancedStruct& PartData) override;
+    virtual bool K2_Wear_Implementation(const FInstancedStruct& PartData) override;
 
 #if WITH_EDITOR
     virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;

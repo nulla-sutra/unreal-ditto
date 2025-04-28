@@ -30,6 +30,7 @@ public:
     virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUseContext>& Payload,
                                  bool& bSuccess, const UE5Coro::TLatentContext<> _) override;
 
+// private:
     UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
     void TakeOff(const FInstancedStruct& PartData);
 
@@ -38,10 +39,10 @@ public:
 
 protected:
     UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="TakeOff")
-    void K2_TakeOff(const FInstancedStruct& PartData);
+    bool K2_TakeOff(const FInstancedStruct& PartData);
 
     UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="Wear")
-    void K2_Wear(const FInstancedStruct& PartData);
+    bool K2_Wear(const FInstancedStruct& PartData);
 
 public:
     UFUNCTION(BlueprintCallable, Category="Ditto | Outfit", BlueprintAuthorityOnly)
