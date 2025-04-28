@@ -16,5 +16,5 @@ struct DITTO_API FDittoPartData_Mutable
     TObjectPtr<UCustomizableSkeletalComponent> CustomizableComponent;
 
     UPROPERTY(BlueprintReadWrite)
-    FName PartName;    
+    FString PartName;    
 };

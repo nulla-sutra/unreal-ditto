@@ -25,7 +25,25 @@ bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<IC
                                                        const int32& Index) const
 {
     const auto Fragment = Item->FindFragmentByClass<UDittoFragment_OutfitPart>();
-    return Fragment && UCombeeLibrary::IsNativeHost(Item, Fragment);
+
+    if (!(Fragment && UCombeeLibrary::IsNativeHost(Item, Fragment)))
+    {
+        return false;
+    }
+
+    const auto PartInfo = RetrievePartInfo(Index);
+
+    if (!PartInfo.IsValid())
+    {
+        return false;
+    }
+
+    if (!UBlueprintGameplayTagLibrary::HasAllTags(Fragment->Part, PartInfo.Part, true))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -36,6 +54,8 @@ void UDittoOutfits::BeginPlay()
     {
         this->PostCellChange.AddDynamic(this, &ThisClass::HandleAuthorityCellMutation);
     }
+
+    // Skip Default Container Behaviour
     Super::Super::BeginPlay();
 
     // ...
@@ -111,7 +131,7 @@ void UDittoOutfits::FindIndexByPart(const FGameplayTagContainer& Part, TArray<in
     for (int Index = 0; Index < Layout.PartsRegistry.Num(); ++Index)
     {
         const auto PartInfo = Layout.PartsRegistry[Index];
-        if (UBlueprintGameplayTagLibrary::HasAllTags(PartInfo.GetPtr()->Part, Part, true))
+        if (PartInfo.IsValid() && UBlueprintGameplayTagLibrary::HasAllTags(Part, PartInfo.GetPtr()->Part, true))
         {
             const int32 ContainerIndex = PartInfo.GetPtr()->ContainerIndex;
             check(CheckIndexIsValid(ContainerIndex))

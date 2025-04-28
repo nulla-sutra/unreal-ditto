@@ -24,9 +24,9 @@ void UDittoFragment_OutfitPart_Mutable::TakeOff_Implementation(const FInstancedS
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
-    if (Coi->FindIntParameterNameIndex(Data->PartName.ToString()) != INDEX_NONE)
+    if (Coi->FindIntParameterNameIndex(Data->PartName) != INDEX_NONE)
     {
-        Component->GetCustomizableObjectInstance()->SetDefaultValue(Data->PartName.ToString());
+        Component->GetCustomizableObjectInstance()->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
     };
 }
@@ -34,7 +34,7 @@ void UDittoFragment_OutfitPart_Mutable::TakeOff_Implementation(const FInstancedS
 void UDittoFragment_OutfitPart_Mutable::Wear_Implementation(const FInstancedStruct& PartData)
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
-    if (!Data || !Data->PartName.IsValid())
+    if (!Data || Data->PartName.IsEmpty())
     {
         TakeOff(PartData);
         return;
@@ -47,10 +47,12 @@ void UDittoFragment_OutfitPart_Mutable::Wear_Implementation(const FInstancedStru
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
-    
-    if (Coi->FindIntParameterNameIndex(Data->PartName.ToString()) != INDEX_NONE)
+    const auto NameStr = Data->PartName;
+
+    if (Coi->FindIntParameterNameIndex(NameStr) != INDEX_NONE)
     {
-        Component->GetCustomizableObjectInstance()->SetIntParameterSelectedOption(Data->PartName.ToString(), ObjectName);
+        Component->GetCustomizableObjectInstance()->
+                   SetIntParameterSelectedOption(NameStr, ObjectName);
         Component->UpdateSkeletalMeshAsync();
     }
 }
