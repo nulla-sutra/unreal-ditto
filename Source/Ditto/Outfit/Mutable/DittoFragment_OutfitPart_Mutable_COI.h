@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DittoFragment_OutfitPart_Mutable_CO.h"
 #include "Ditto/Outfit/DittoFragment_OutfitPart.h"
 #include "DittoFragment_OutfitPart_Mutable_COI.generated.h"
 
