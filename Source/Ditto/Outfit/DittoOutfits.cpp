@@ -19,6 +19,8 @@ UDittoOutfits::UDittoOutfits()
     PrimaryComponentTick.bCanEverTick = true;
 
     // ...
+
+    HiveReplicateCondition = COND_SimulatedOnlyNoReplay;
 }
 
 bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<ICombeeItemInterface>& Item,
@@ -57,6 +59,11 @@ void UDittoOutfits::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
     Params.Condition = COND_OwnerOnly;
     DOREPLIFETIME_WITH_PARAMS(ThisClass, Layout, Params);
     DOREPLIFETIME_WITH_PARAMS(ThisClass, Avatar, Params);
+}
+
+void UDittoOutfits::PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker)
+{
+    Super::PreReplication(ChangedPropertyTracker);
 }
 
 void UDittoOutfits::SetAvatar(AActor* InAvatar)

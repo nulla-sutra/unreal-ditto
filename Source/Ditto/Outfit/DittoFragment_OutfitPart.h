@@ -30,7 +30,7 @@ public:
     virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUseContext>& Payload,
                                  bool& bSuccess, const UE5Coro::TLatentContext<> _) override;
 
-// private:
+    // private:
     UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
     void TakeOff(const FInstancedStruct& PartData);
 

@@ -24,6 +24,7 @@ protected:
     // Called when the game starts
     virtual void BeginPlay() override;
     virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+    virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
 
 public:
     UPROPERTY(ReplicatedUsing=OnRep_Avatar, BlueprintReadWrite, Category="Outfit", Setter)
