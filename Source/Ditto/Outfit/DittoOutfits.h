@@ -64,6 +64,9 @@ public:
         return Info.IsValid();
     }
 
+    UFUNCTION(BlueprintPure, Category="Outfit", meta=(AutoCreateRefTerm="Index"))
+    bool CheckPartTypeCompatible(const FGameplayTagContainer& PartType, const int32& Index) const;
+
 protected:
     UFUNCTION()
     void HandleAuthorityCellMutation(const FCombeeCellMutationContext& Context);

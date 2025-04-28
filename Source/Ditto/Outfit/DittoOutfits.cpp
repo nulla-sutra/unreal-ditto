@@ -31,19 +31,7 @@ bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<IC
         return false;
     }
 
-    const auto PartInfo = RetrievePartInfo(Index);
-
-    if (!PartInfo.IsValid())
-    {
-        return false;
-    }
-
-    if (!UBlueprintGameplayTagLibrary::HasAllTags(Fragment->Part, PartInfo.Part, true))
-    {
-        return false;
-    }
-
-    return true;
+    return CheckPartTypeCompatible(Fragment->Part, Index);
 }
 
 
@@ -131,7 +119,7 @@ void UDittoOutfits::FindIndexByPart(const FGameplayTagContainer& Part, TArray<in
     for (int Index = 0; Index < Layout.PartsRegistry.Num(); ++Index)
     {
         const auto PartInfo = Layout.PartsRegistry[Index];
-        if (PartInfo.IsValid() && UBlueprintGameplayTagLibrary::HasAllTags(Part, PartInfo.GetPtr()->Part, true))
+        if (CheckPartTypeCompatible(Part, Index))
         {
             const int32 ContainerIndex = PartInfo.GetPtr()->ContainerIndex;
             check(CheckIndexIsValid(ContainerIndex))
@@ -145,6 +133,17 @@ void UDittoOutfits::FindIndexByPart(const FGameplayTagContainer& Part, TArray<in
         First = OutIndices[0];
         Last = OutIndices.Last();
     }
+}
+
+bool UDittoOutfits::CheckPartTypeCompatible(const FGameplayTagContainer& PartType, const int32& Index) const
+{
+    const auto PartInfo = Layout.PartsRegistry[Index].GetPtr();
+    if (!PartInfo || !PartType.IsValid() || !PartInfo->IsValid())
+    {
+        return false;
+    }
+
+    return UBlueprintGameplayTagLibrary::HasAllTags(PartType, PartInfo->Part, true);
 }
 
 void UDittoOutfits::HandleAuthorityCellMutation(const FCombeeCellMutationContext& Context)
