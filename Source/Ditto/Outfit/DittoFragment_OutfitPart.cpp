@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 
 #include "DittoFragment_OutfitPart.h"
@@ -121,58 +121,12 @@ FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,
     }
 }
 
-void UDittoFragment_OutfitPart::ProcessOutfitsMutation(UDittoOutfits* OutfitsComponent,
-                                                       const FCombeeCellMutationContext& Context)
+void UDittoFragment_OutfitPart::TakeOff_Implementation(const FInstancedStruct& PartData) const
 {
-    ensure(OutfitsComponent);
-
-    const auto PartInfo = OutfitsComponent->RetrievePartInfo(Context.TargetIndex);
-    if (!PartInfo.IsValid())
-    {
-        return;
-    }
-
-    const auto& PartData = PartInfo.PartData;
-
-    const auto PreviousItem = Context.PreviousInstance;
-    if (PreviousItem)
-    {
-        const auto Fragment = PreviousItem->FindFragmentByClass<ThisClass>();
-        if (Fragment)
-        {
-            Fragment->TakeOff(PartData);
-        }
-    }
-
-    const auto UpcomingItem = Context.UpcomingInstance;
-    if (UpcomingItem)
-    {
-        const auto Fragment = UpcomingItem->FindFragmentByClass<ThisClass>();
-        if (Fragment)
-        {
-            Fragment->Wear(PartData);
-        }
-    }
+    unimplemented()
 }
 
-void UDittoFragment_OutfitPart::TakeOff_Implementation(const FInstancedStruct& PartData)
+void UDittoFragment_OutfitPart::Wear_Implementation(const FInstancedStruct& PartData) const
 {
-    K2_TakeOff(PartData);
-}
-
-bool UDittoFragment_OutfitPart::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
-{
-    unimplemented();
-    return false;
-}
-
-void UDittoFragment_OutfitPart::Wear_Implementation(const FInstancedStruct& PartData)
-{
-    K2_Wear(PartData);
-}
-
-bool UDittoFragment_OutfitPart::K2_Wear_Implementation(const FInstancedStruct& PartData)
-{
-    unimplemented();
-    return false;
+    unimplemented()
 }

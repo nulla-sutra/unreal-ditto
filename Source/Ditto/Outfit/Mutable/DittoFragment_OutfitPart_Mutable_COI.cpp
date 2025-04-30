@@ -13,15 +13,15 @@ UDittoFragment_OutfitPart_Mutable_COI::UDittoFragment_OutfitPart_Mutable_COI()
 {
 }
 
-bool UDittoFragment_OutfitPart_Mutable_COI::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
+void UDittoFragment_OutfitPart_Mutable_COI::TakeOff_Implementation(const FInstancedStruct& PartData) const
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
-    if (!Data) return false;
+    if (!Data) return;
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return false;
+        return;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
@@ -29,25 +29,24 @@ bool UDittoFragment_OutfitPart_Mutable_COI::K2_TakeOff_Implementation(const FIns
     {
         Coi->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
-        return true;
+        return;
     };
 
-    return false;
+    return;
 }
 
-bool UDittoFragment_OutfitPart_Mutable_COI::K2_Wear_Implementation(const FInstancedStruct& PartData)
+void UDittoFragment_OutfitPart_Mutable_COI::Wear_Implementation(const FInstancedStruct& PartData) const
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
     if (!Data || Data->PartName.IsEmpty())
     {
-        K2_TakeOff(PartData);
-        return false;;
+        return;;
     }
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return false;
+        return;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
@@ -58,10 +57,7 @@ bool UDittoFragment_OutfitPart_Mutable_COI::K2_Wear_Implementation(const FInstan
         Coi->SetIntParameterSelectedOption(NameStr, ObjectName);
         Coi->CopyParametersFromInstance(CustomizableObjectInstance);
         Component->UpdateSkeletalMeshAsync();
-        return true;
     }
-
-    return false;
 }
 
 

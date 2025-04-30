@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 #pragma once
 
@@ -9,7 +9,6 @@
 #include "UE5Coro.h"
 #include "DittoFragment_OutfitPart.generated.h"
 
-struct FCombeeCellMutationContext;
 class UDittoOutfits;
 class UCombeeContainer;
 /**
@@ -19,6 +18,8 @@ UCLASS(Abstract, DisplayName="Outfit Part (Ditto)")
 class DITTO_API UDittoFragment_OutfitPart : public UCombeeFragment, public ICombeeUsableFragment
 {
     GENERATED_BODY()
+
+    friend class UDittoOutfits;
 
 public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -30,21 +31,10 @@ public:
     virtual FVoidCoroutine OnUse(AController* const& Instigator, TInstancedStruct<FCombeeUseContext>& Payload,
                                  bool& bSuccess, const UE5Coro::TLatentContext<> _) override;
 
-    // private:
-    UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
-    void TakeOff(const FInstancedStruct& PartData);
-
-    UFUNCTION(NetMulticast, Reliable, BlueprintCallable, Category="Ditto | Outfit Avatar")
-    void Wear(const FInstancedStruct& PartData);
-
 protected:
-    UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="TakeOff")
-    bool K2_TakeOff(const FInstancedStruct& PartData);
+    UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="Take Off")
+    void TakeOff(const FInstancedStruct& PartData) const;
 
     UFUNCTION(BlueprintNativeEvent, Category="Ditto | Outfit Avatar", DisplayName="Wear")
-    bool K2_Wear(const FInstancedStruct& PartData);
-
-public:
-    UFUNCTION(BlueprintCallable, Category="Ditto | Outfit", BlueprintAuthorityOnly)
-    static void ProcessOutfitsMutation(UDittoOutfits* OutfitsComponent, const FCombeeCellMutationContext& Context);
+    void Wear(const FInstancedStruct& PartData) const;
 };

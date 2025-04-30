@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 #pragma once
 
@@ -13,7 +13,7 @@ class UDittoOutfits;
 UINTERFACE(Blueprintable)
 class DITTO_API UDittoOutfitAvatar : public UInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 };
 
 /**
@@ -21,22 +21,22 @@ class DITTO_API UDittoOutfitAvatar : public UInterface
  */
 class DITTO_API IDittoOutfitAvatar
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+    // Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	UFUNCTION(BlueprintNativeEvent,
-		Category="Outfit Avatar",
-		BlueprintAuthorityOnly,
-		DisplayName="Setup Outfit Avatar (Authority)",
-		meta=(ForceAsFunction)
-	)
-	void SetupOutfitAvatar(UDittoOutfits* OutfitComponent);
+    UFUNCTION(BlueprintNativeEvent,
+        Category="Outfit Avatar",
+        BlueprintAuthorityOnly,
+        DisplayName="Setup Outfit Avatar (Authority)",
+        meta=(ForceAsFunction)
+    )
+    void SetupOutfitAvatar(UDittoOutfits* OutfitComponent);
 
-	UFUNCTION(BlueprintNativeEvent,
-		Category="Outfit Avatar",
-		BlueprintAuthorityOnly,
-		DisplayName="Receive Outfit Update (Authority)",
-		meta=(ForceAsFunction))
-	void ReceiveOutfitUpdate(UDittoOutfits* OutfitComponent, const FCombeeCellMutationContext& Context);
+    UFUNCTION(BlueprintNativeEvent,
+        Category="Outfit Avatar",
+        BlueprintAuthorityOnly,
+        DisplayName="Receive Outfit Update (Authority)",
+        meta=(ForceAsFunction))
+    void ReceiveOutfitUpdate(UDittoOutfits* OutfitComponent, const FCombeeCellMutationContext& Context);
 };

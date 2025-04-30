@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 
 #include "DittoOutfits.h"
@@ -19,8 +19,6 @@ UDittoOutfits::UDittoOutfits()
     PrimaryComponentTick.bCanEverTick = false;
 
     // ...
-
-    HiveReplicateCondition = COND_Dynamic;
 }
 
 bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<ICombeeItemInterface>& Item,
@@ -40,11 +38,6 @@ bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<IC
 // Called when the game starts
 void UDittoOutfits::BeginPlay()
 {
-    if (GetOwner()->HasAuthority())
-    {
-        this->PostCellChange.AddDynamic(this, &ThisClass::HandleAuthorityCellMutation);
-    }
-
     // Skip Default Container Behaviour
     Super::Super::BeginPlay();
 
@@ -64,6 +57,17 @@ void UDittoOutfits::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
 void UDittoOutfits::PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker)
 {
     Super::PreReplication(ChangedPropertyTracker);
+}
+
+void UDittoOutfits::OnInitialization_Implementation()
+{
+    if (GetOwner()->HasAuthority())
+    {
+        this->PostCellChange.AddUniqueDynamic(this, &ThisClass::HandleAuthorityCellMutation);
+        // this->ReceiveContainerMutation.
+        //       AddUniqueDynamic(this, &ThisClass::UDittoOutfits::HandleOutfitsContainerMutation);
+    }
+    Super::OnInitialization_Implementation();
 }
 
 void UDittoOutfits::SetAvatar(AActor* InAvatar)
@@ -155,11 +159,46 @@ bool UDittoOutfits::CheckPartTypeCompatible(const FGameplayTagContainer& PartTyp
 
 void UDittoOutfits::HandleAuthorityCellMutation(const FCombeeCellMutationContext& Context)
 {
-    if (Context.State == ECombeeExecutionState::Success)
+    ensure(Context.State == ECombeeExecutionState::Success);
     {
         if (IsValid(Avatar) && Avatar->Implements<UDittoOutfitAvatar>())
         {
             IDittoOutfitAvatar::Execute_ReceiveOutfitUpdate(Avatar, this, Context);
         }
+    }
+}
+
+void UDittoOutfits::Wear_Implementation(UDittoFragment_OutfitPart* Fragment, const FInstancedStruct& PartData)
+{
+    if (Fragment)
+    {
+        Fragment->Wear(PartData);
+    }
+}
+
+void UDittoOutfits::TakeOff_Implementation(const TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,
+                                           const FInstancedStruct& PartData)
+{
+    FragmentClass.GetDefaultObject()->TakeOff(PartData);
+}
+
+void UDittoOutfits::DressUp_Implementation(const FCombeeCellMutationContext& Context)
+{
+    const auto PartInfo = RetrievePartInfo(Context.TargetIndex);
+    if (!PartInfo.IsValid())
+    {
+        return;
+    }
+
+    const auto PreviousItem = Context.PreviousInstance;
+    if (PreviousItem)
+    {
+        TakeOff(PreviousItem->FindFragmentByClass<UDittoFragment_OutfitPart>()->GetClass(), PartInfo.PartData);
+    }
+
+    const auto UpcomingItem = Context.UpcomingInstance;
+    if (UpcomingItem)
+    {
+        Wear(UpcomingItem->FindFragmentByClass<UDittoFragment_OutfitPart>(), PartInfo.PartData);
     }
 }

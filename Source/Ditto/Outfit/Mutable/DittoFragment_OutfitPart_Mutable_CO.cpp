@@ -4,6 +4,7 @@
 #include "DittoFragment_OutfitPart_Mutable_CO.h"
 
 #include "DittoPartData_Mutable.h"
+#include "Ditto/Outfit/DittoOutfits.h"
 #include "MuCO/CustomizableObject.h"
 #include "MuCO/CustomizableSkeletalComponent.h"
 
@@ -12,15 +13,15 @@
 #endif
 
 
-bool UDittoFragment_OutfitPart_Mutable_CO::K2_TakeOff_Implementation(const FInstancedStruct& PartData)
+void UDittoFragment_OutfitPart_Mutable_CO::TakeOff_Implementation(const FInstancedStruct& PartData) const
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
-    if (!Data) return false;
+    if (!Data) return;
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return false;
+        return;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
@@ -28,25 +29,21 @@ bool UDittoFragment_OutfitPart_Mutable_CO::K2_TakeOff_Implementation(const FInst
     {
         Coi->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
-        return true;
     };
-
-    return false;
 }
 
-bool UDittoFragment_OutfitPart_Mutable_CO::K2_Wear_Implementation(const FInstancedStruct& PartData)
+void UDittoFragment_OutfitPart_Mutable_CO::Wear_Implementation(const FInstancedStruct& PartData) const
 {
     const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
     if (!Data || Data->PartName.IsEmpty())
     {
-        K2_TakeOff(PartData);
-        return false;;
+        return;
     }
 
     const auto Component = Data->CustomizableComponent;
     if (!ensure(Component))
     {
-        return false;
+        return;
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
@@ -56,10 +53,7 @@ bool UDittoFragment_OutfitPart_Mutable_CO::K2_Wear_Implementation(const FInstanc
     {
         Coi->SetIntParameterSelectedOption(NameStr, ObjectName);
         Component->UpdateSkeletalMeshAsync();
-        return true;
     }
-
-    return false;
 }
 
 #if WITH_EDITOR

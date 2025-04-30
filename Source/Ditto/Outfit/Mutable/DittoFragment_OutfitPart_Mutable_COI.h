@@ -24,8 +24,8 @@ public:
     FString ObjectName;
 
 protected:
-    virtual bool K2_TakeOff_Implementation(const FInstancedStruct& PartData) override;
-    virtual bool K2_Wear_Implementation(const FInstancedStruct& PartData) override;
+    virtual void TakeOff_Implementation(const FInstancedStruct& PartData) const override;
+    virtual void Wear_Implementation(const FInstancedStruct& PartData) const override;
 
 #if WITH_EDITOR
     virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;

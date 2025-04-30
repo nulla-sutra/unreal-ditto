@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Copyright 2019-Present tarnishablec. All Rights Reserved.
 
 #pragma once
 
@@ -8,6 +8,8 @@
 
 #include "DittoOutfits.generated.h"
 
+
+class UDittoFragment_OutfitPart;
 
 UCLASS(ClassGroup=(Outfit), meta=(BlueprintSpawnableComponent))
 class DITTO_API UDittoOutfits : public UCombeeContainer
@@ -25,6 +27,7 @@ protected:
     virtual void BeginPlay() override;
     virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
+    virtual void OnInitialization_Implementation() override;
 
 public:
     UPROPERTY(ReplicatedUsing=OnRep_Avatar, BlueprintReadWrite, Category="Outfit", Setter)
@@ -71,4 +74,18 @@ public:
 protected:
     UFUNCTION()
     void HandleAuthorityCellMutation(const FCombeeCellMutationContext& Context);
+
+    // UFUNCTION()
+    // void HandleOutfitsContainerMutation(const FCombeeContainerMutationContext& Context);
+
+public:
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintAuthorityOnly)
+    void DressUp(const FCombeeCellMutationContext& Context);
+
+    UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
+    void TakeOff(TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,
+                 const FInstancedStruct& PartData);
+
+    UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
+    void Wear(UDittoFragment_OutfitPart* Fragment, const FInstancedStruct& PartData);
 };
