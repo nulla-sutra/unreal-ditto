@@ -42,6 +42,16 @@ public class Ditto : ModuleRules
 			}
 		);
 
+		if (Target.Type == TargetType.Editor)
+		{
+			PrivateDependencyModuleNames.AddRange(
+				new[]
+				{
+					"CustomizableObjectEditor"
+				}
+			);
+		}
+
 
 		PrivateDependencyModuleNames.AddRange(
 			new[]
@@ -52,7 +62,6 @@ public class Ditto : ModuleRules
 				"SlateCore",
 				"NetCommon",
 				"NetCore",
-				"CustomizableObjectEditor",
 
 				// ... add private dependencies that you statically link with here ...	
 			}

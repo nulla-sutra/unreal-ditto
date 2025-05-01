@@ -40,7 +40,7 @@ bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<IC
 // Called when the game starts
 void UDittoOutfits::BeginPlay()
 {
-    // Skip Default Container Behaviour
+    // Skip Default Container Init Behaviour
     Super::Super::BeginPlay();
 
     // ...
