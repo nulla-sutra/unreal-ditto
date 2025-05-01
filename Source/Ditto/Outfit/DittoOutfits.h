@@ -80,7 +80,10 @@ protected:
 
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintAuthorityOnly)
-    void ProcessAvatarUpdate(const FCombeeCellMutationContext& Context);
+    void ProcessAvatarTakeOff(const FCombeeCellMutationContext& Context);
+
+    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintAuthorityOnly)
+    void ProcessAvatarWear(const FCombeeContainerMutationContext& Context);
 
     UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
     void TakeOff(TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,

@@ -165,14 +165,28 @@ void UDittoOutfits::HandleAuthorityCellMutation(const FCombeeCellMutationContext
     {
         if (IsValid(Avatar) && Avatar->Implements<UDittoOutfitAvatar>())
         {
-            ProcessAvatarUpdate(Context);
-            IDittoOutfitAvatar::Execute_ReceiveOutfitUpdate(Avatar, this, Context);
+            const auto Handled = IDittoOutfitAvatar::Execute_ReceiveOutfitUpdate(Avatar, this, Context);
+            if (!Handled)
+            {
+                ProcessAvatarTakeOff(Context);
+            }
         }
     }
 }
 
-// ReSharper disable once CppMemberFunctionMayBeConst
 void UDittoOutfits::HandleOutfitsContainerMutation(const FCombeeContainerMutationContext& Context)
+{
+    if (IsValid(Avatar) && Avatar->Implements<UDittoOutfitAvatar>())
+    {
+        const auto Handled = IDittoOutfitAvatar::Execute_ReceiveOutfitUpdateDeferred(Avatar, this, Context);
+        if (!Handled)
+        {
+            ProcessAvatarWear(Context);
+        }
+    }
+}
+
+void UDittoOutfits::ProcessAvatarWear_Implementation(const FCombeeContainerMutationContext& Context)
 {
     if (Context.MutationType == ECombeeMutationType::Change)
     {
@@ -191,7 +205,6 @@ void UDittoOutfits::HandleOutfitsContainerMutation(const FCombeeContainerMutatio
 
             if (OutfitItem)
             {
-                // Wear(OutfitItem->FindFragmentByClass<UDittoFragment_OutfitPart>(), PartInfo.PartData);
                 OutfitItem->FindFragmentByClass<UDittoFragment_OutfitPart>()->Wear(PartInfo.PartData);
             }
         }
@@ -204,7 +217,7 @@ void UDittoOutfits::TakeOff_Implementation(const TSubclassOf<UDittoFragment_Outf
     FragmentClass.GetDefaultObject()->TakeOff(PartData);
 }
 
-void UDittoOutfits::ProcessAvatarUpdate_Implementation(const FCombeeCellMutationContext& Context)
+void UDittoOutfits::ProcessAvatarTakeOff_Implementation(const FCombeeCellMutationContext& Context)
 {
     const auto PartInfo = RetrievePartInfo(Context.TargetIndex);
     if (!PartInfo.IsValid())
@@ -215,6 +228,7 @@ void UDittoOutfits::ProcessAvatarUpdate_Implementation(const FCombeeCellMutation
     const auto PreviousItem = Context.PreviousInstance;
     if (PreviousItem)
     {
+        // Previous Item May not be replicated to Client
         TakeOff(PreviousItem->FindFragmentByClass<UDittoFragment_OutfitPart>()->GetClass(), PartInfo.PartData);
     }
 }

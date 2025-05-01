@@ -37,6 +37,11 @@ public:
         Category="Outfit Avatar",
         BlueprintAuthorityOnly,
         DisplayName="Receive Outfit Update (Authority)",
-        meta=(ForceAsFunction))
-    void ReceiveOutfitUpdate(UDittoOutfits* OutfitComponent, const FCombeeCellMutationContext& Context);
+        meta=(ForceAsFunction, ToolTip="After Cell Changed"))
+    bool ReceiveOutfitUpdate(UDittoOutfits* OutfitComponent, const FCombeeCellMutationContext& Context);
+
+    UFUNCTION(BlueprintNativeEvent, Category="Outfit Avatar",
+        DisplayName="Receive Outfit Update Deferred (Server | Client)",
+        meta=(ForceAsFunction, ToolTip="After Container Replicated"))
+    bool ReceiveOutfitUpdateDeferred(UDittoOutfits* OutfitComponent, const FCombeeContainerMutationContext& Context);
 };
