@@ -75,12 +75,12 @@ protected:
     UFUNCTION()
     void HandleAuthorityCellMutation(const FCombeeCellMutationContext& Context);
 
-    // UFUNCTION()
-    // void HandleOutfitsContainerMutation(const FCombeeContainerMutationContext& Context);
+    UFUNCTION()
+    void HandleOutfitsContainerMutation(const FCombeeContainerMutationContext& Context);
 
 public:
     UFUNCTION(BlueprintCallable, BlueprintNativeEvent, BlueprintAuthorityOnly)
-    void DressUp(const FCombeeCellMutationContext& Context);
+    void ProcessAvatarUpdate(const FCombeeCellMutationContext& Context);
 
     UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
     void TakeOff(TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,

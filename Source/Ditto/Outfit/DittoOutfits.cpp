@@ -19,6 +19,8 @@ UDittoOutfits::UDittoOutfits()
     PrimaryComponentTick.bCanEverTick = false;
 
     // ...
+
+    HiveReplicateCondition = COND_SimulatedOnly;
 }
 
 bool UDittoOutfits::CheckItemCompatible_Implementation(const TScriptInterface<ICombeeItemInterface>& Item,
@@ -49,7 +51,7 @@ void UDittoOutfits::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& 
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     FDoRepLifetimeParams Params;
     Params.bIsPushBased = true;
-    Params.Condition = COND_OwnerOnly;
+    Params.Condition = COND_None;
     DOREPLIFETIME_WITH_PARAMS(ThisClass, Layout, Params);
     DOREPLIFETIME_WITH_PARAMS(ThisClass, Avatar, Params);
 }
@@ -64,9 +66,9 @@ void UDittoOutfits::OnInitialization_Implementation()
     if (GetOwner()->HasAuthority())
     {
         this->PostCellChange.AddUniqueDynamic(this, &ThisClass::HandleAuthorityCellMutation);
-        // this->ReceiveContainerMutation.
-        //       AddUniqueDynamic(this, &ThisClass::UDittoOutfits::HandleOutfitsContainerMutation);
     }
+    this->ReceiveContainerMutation.
+          AddDynamic(this, &ThisClass::UDittoOutfits::HandleOutfitsContainerMutation);
     Super::OnInitialization_Implementation();
 }
 
@@ -163,17 +165,42 @@ void UDittoOutfits::HandleAuthorityCellMutation(const FCombeeCellMutationContext
     {
         if (IsValid(Avatar) && Avatar->Implements<UDittoOutfitAvatar>())
         {
+            ProcessAvatarUpdate(Context);
             IDittoOutfitAvatar::Execute_ReceiveOutfitUpdate(Avatar, this, Context);
+        }
+    }
+}
+
+// ReSharper disable once CppMemberFunctionMayBeConst
+void UDittoOutfits::HandleOutfitsContainerMutation(const FCombeeContainerMutationContext& Context)
+{
+    if (Context.MutationType == ECombeeMutationType::Change)
+    {
+        for (auto&& Index : Context.Indices)
+        {
+            bool bIndexValid;
+            const auto OutfitItem = GetCell(Index, bIndexValid).Item;
+
+            ensure(bIndexValid);
+
+            const auto PartInfo = RetrievePartInfo(Index);
+            if (!PartInfo.IsValid())
+            {
+                continue;
+            }
+
+            if (OutfitItem)
+            {
+                // Wear(OutfitItem->FindFragmentByClass<UDittoFragment_OutfitPart>(), PartInfo.PartData);
+                OutfitItem->FindFragmentByClass<UDittoFragment_OutfitPart>()->Wear(PartInfo.PartData);
+            }
         }
     }
 }
 
 void UDittoOutfits::Wear_Implementation(UDittoFragment_OutfitPart* Fragment, const FInstancedStruct& PartData)
 {
-    if (Fragment)
-    {
-        Fragment->Wear(PartData);
-    }
+    Fragment->Wear(PartData);
 }
 
 void UDittoOutfits::TakeOff_Implementation(const TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,
@@ -182,7 +209,7 @@ void UDittoOutfits::TakeOff_Implementation(const TSubclassOf<UDittoFragment_Outf
     FragmentClass.GetDefaultObject()->TakeOff(PartData);
 }
 
-void UDittoOutfits::DressUp_Implementation(const FCombeeCellMutationContext& Context)
+void UDittoOutfits::ProcessAvatarUpdate_Implementation(const FCombeeCellMutationContext& Context)
 {
     const auto PartInfo = RetrievePartInfo(Context.TargetIndex);
     if (!PartInfo.IsValid())
@@ -194,11 +221,5 @@ void UDittoOutfits::DressUp_Implementation(const FCombeeCellMutationContext& Con
     if (PreviousItem)
     {
         TakeOff(PreviousItem->FindFragmentByClass<UDittoFragment_OutfitPart>()->GetClass(), PartInfo.PartData);
-    }
-
-    const auto UpcomingItem = Context.UpcomingInstance;
-    if (UpcomingItem)
-    {
-        Wear(UpcomingItem->FindFragmentByClass<UDittoFragment_OutfitPart>(), PartInfo.PartData);
     }
 }
