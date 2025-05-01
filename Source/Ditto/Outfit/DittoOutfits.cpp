@@ -198,11 +198,6 @@ void UDittoOutfits::HandleOutfitsContainerMutation(const FCombeeContainerMutatio
     }
 }
 
-void UDittoOutfits::Wear_Implementation(UDittoFragment_OutfitPart* Fragment, const FInstancedStruct& PartData)
-{
-    Fragment->Wear(PartData);
-}
-
 void UDittoOutfits::TakeOff_Implementation(const TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,
                                            const FInstancedStruct& PartData)
 {

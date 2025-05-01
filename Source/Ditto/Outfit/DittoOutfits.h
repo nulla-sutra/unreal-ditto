@@ -85,7 +85,4 @@ public:
     UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
     void TakeOff(TSubclassOf<UDittoFragment_OutfitPart> FragmentClass,
                  const FInstancedStruct& PartData);
-
-    UFUNCTION(BlueprintInternalUseOnly, NetMulticast, Reliable)
-    void Wear(UDittoFragment_OutfitPart* Fragment, const FInstancedStruct& PartData);
 };
