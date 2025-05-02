@@ -28,6 +28,7 @@ protected:
     virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
     virtual void OnInitialization_Implementation() override;
+    virtual void InitializeComponent() override;
 
 public:
     UPROPERTY(ReplicatedUsing=OnRep_Avatar, BlueprintReadWrite, Category="Outfit", Setter)

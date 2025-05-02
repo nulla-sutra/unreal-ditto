@@ -72,6 +72,11 @@ void UDittoOutfits::OnInitialization_Implementation()
     Super::OnInitialization_Implementation();
 }
 
+void UDittoOutfits::InitializeComponent()
+{
+    Super::InitializeComponent();
+}
+
 void UDittoOutfits::SetAvatar(AActor* InAvatar)
 {
     if (GetOwner()->HasAuthority() && InAvatar != Avatar)
