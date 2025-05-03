@@ -3,7 +3,7 @@
 
 #include "DittoFragment_OutfitPart_Mutable_CO.h"
 
-#include "DittoPartData_Mutable.h"
+#include "DittoOutfitPartData_Mutable.h"
 #include "Ditto/Outfit/DittoOutfits.h"
 #include "MuCO/CustomizableObject.h"
 #include "MuCO/CustomizableSkeletalComponent.h"
@@ -15,7 +15,7 @@
 
 void UDittoFragment_OutfitPart_Mutable_CO::TakeOff_Implementation(const FInstancedStruct& PartData) const
 {
-    const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
+    const auto Data = PartData.GetPtr<FDittoOutfitPartData_Mutable>();
     if (!Data) return;
 
     const auto Component = Data->CustomizableComponent;
@@ -34,7 +34,7 @@ void UDittoFragment_OutfitPart_Mutable_CO::TakeOff_Implementation(const FInstanc
 
 void UDittoFragment_OutfitPart_Mutable_CO::Wear_Implementation(const FInstancedStruct& PartData) const
 {
-    const auto Data = PartData.GetPtr<FDittoPartData_Mutable>();
+    const auto Data = PartData.GetPtr<FDittoOutfitPartData_Mutable>();
     if (!Data || Data->PartName.IsEmpty())
     {
         return;

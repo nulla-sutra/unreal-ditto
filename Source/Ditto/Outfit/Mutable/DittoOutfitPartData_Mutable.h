@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DittoPartData_Mutable.generated.h"
+#include "DittoOutfitPartData_Mutable.generated.h"
 
 class UCustomizableSkeletalComponent;
 
 USTRUCT(BlueprintType)
-struct DITTO_API FDittoPartData_Mutable
+struct DITTO_API FDittoOutfitPartData_Mutable
 {
     GENERATED_BODY()
 

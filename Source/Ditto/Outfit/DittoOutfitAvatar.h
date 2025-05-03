@@ -42,6 +42,6 @@ public:
 
     UFUNCTION(BlueprintNativeEvent, Category="Outfit Avatar",
         DisplayName="Receive Outfit Update Deferred (Server | Client)",
-        meta=(ForceAsFunction, ToolTip="After Container Replicated"))
+        meta=(ForceAsFunction, ToolTip="After Container Mutated"))
     bool ReceiveOutfitUpdateDeferred(UDittoOutfits* OutfitComponent, const FCombeeContainerMutationContext& Context);
 };
