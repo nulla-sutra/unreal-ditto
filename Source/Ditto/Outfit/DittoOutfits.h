@@ -34,7 +34,7 @@ public:
     UPROPERTY(ReplicatedUsing=OnRep_Avatar, BlueprintReadWrite, Category="Outfit", Setter)
     TObjectPtr<AActor> Avatar;
 
-    UPROPERTY(ReplicatedUsing=OnReq_Layout, BlueprintReadOnly, Category="Outfit")
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="Outfit")
     FDittoOutfitLayout Layout = FDittoOutfitLayout(this);
 
     UFUNCTION(BlueprintAuthorityOnly)
@@ -42,9 +42,6 @@ public:
 
     UFUNCTION(BlueprintNativeEvent)
     void OnRep_Avatar();
-
-    UFUNCTION(BlueprintNativeEvent)
-    void OnReq_Layout();
 
     UFUNCTION(BlueprintCallable, Category="Outfit", meta=(AutoCreateRefTerm="PartData"), BlueprintAuthorityOnly)
     FDittoOutfitLayoutPart RegisterPart(FGameplayTagContainer Part,

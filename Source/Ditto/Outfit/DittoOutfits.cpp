@@ -92,14 +92,12 @@ void UDittoOutfits::SetAvatar(AActor* InAvatar)
         {
             COMPARE_ASSIGN_AND_MARK_PROPERTY_DIRTY(ThisClass, Avatar, nullptr, this);
         }
+
+        OnRep_Avatar();
     }
 }
 
 void UDittoOutfits::OnRep_Avatar_Implementation()
-{
-}
-
-void UDittoOutfits::OnReq_Layout_Implementation()
 {
 }
 
