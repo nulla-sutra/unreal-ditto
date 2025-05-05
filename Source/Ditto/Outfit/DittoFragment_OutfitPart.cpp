@@ -23,16 +23,17 @@ FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,
         bSuccess = false;
         co_return ;
     }
-    const auto Subsystem = GetWorld()->GetGameInstance()->GetSubsystem<UCombeeTransactionSubsystem>();
 
     const auto TriggerContainer = PayloadPtr->TriggerContainer;
     const auto TriggerIndex = PayloadPtr->TriggerIndex;
+    const auto Subsystem = UCombeeTransactionSubsystem::Get(*Instigator);
 
     if (!IsValid(Instigator) || !IsValid(TriggerContainer) || !IsValid(Subsystem))
     {
         bSuccess = false;
         co_return ;
     }
+
 
     bool bTriggerIndexValid;
     const auto TriggerCell = TriggerContainer->GetCell(TriggerIndex, bTriggerIndexValid);

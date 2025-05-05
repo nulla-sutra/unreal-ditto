@@ -41,7 +41,7 @@ struct DITTO_API FDittoOutfitLayout
 	UPROPERTY()
 	TArray<TInstancedStruct<FDittoOutfitLayoutPart>> PartsRegistry;
 
-	int32 Version = 0;
+	uint32 Version = 0;
 
 	FDittoOutfitLayout()
 	{
