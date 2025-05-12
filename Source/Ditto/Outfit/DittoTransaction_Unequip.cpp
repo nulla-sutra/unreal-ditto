@@ -8,39 +8,34 @@
 
 void UDittoTransaction_Unequip::OnExecute_Implementation()
 {
-	const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
+    const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
 
-	if (!PayloadPtr)
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!PayloadPtr)
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
-	const auto OutfitContainer = PayloadPtr->OutfitContainer;
-	const auto OutfitIndex = PayloadPtr->OutfitIndex;
-	const auto ClosetContainer = PayloadPtr->OtherContainer;
+    const auto OutfitContainer = PayloadPtr->OutfitContainer;
+    const auto OutfitIndex = PayloadPtr->OutfitIndex;
+    const auto ClosetContainer = PayloadPtr->OtherContainer;
 
-	if (!IsValid(OutfitContainer) || !IsValid(ClosetContainer))
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!IsValid(OutfitContainer) || !IsValid(ClosetContainer))
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
-	if (!OutfitContainer->CheckIndexIsValid(OutfitIndex))
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!OutfitContainer->CheckIndexIsValid(OutfitIndex))
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
 
-	FCombeeTransactionPayload_Move AppendPayload{.bAutoExpand = false};
+    FCombeeTransactionPayload_Move AppendPayload{.bAutoExpand = false};
 
-	AppendPayload.FromContainer = OutfitContainer;
-	AppendPayload.FromIndex = OutfitIndex;
-	AppendPayload.TargetContainer = ClosetContainer;
+    AppendPayload.FromContainer = OutfitContainer;
+    AppendPayload.FromIndex = OutfitIndex;
+    AppendPayload.TargetContainer = ClosetContainer;
 
-	const auto AppendResult = ProcessTransaction<UCombeeTransaction_Move>(
-		FInstancedStruct::Make(AppendPayload));
-
-	if (AppendResult->State != ECombeeExecutionState::Success)
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    ProcessTransaction<UCombeeTransaction_Move>(
+        FInstancedStruct::Make(AppendPayload));
 }

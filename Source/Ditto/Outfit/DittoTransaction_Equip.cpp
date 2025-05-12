@@ -13,81 +13,76 @@
 
 void UDittoTransaction_Equip::OnExecute_Implementation()
 {
-	const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
+    const auto PayloadPtr = Payload.GetPtr<FPayloadType>();
 
-	if (!PayloadPtr)
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!PayloadPtr)
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
-	const auto OutfitContainer = PayloadPtr->OutfitContainer;
-	auto Part = PayloadPtr->Part;
-	auto OutfitIndex = PayloadPtr->OutfitIndex;
-	const auto OtherContainer = PayloadPtr->OtherContainer;
-	const auto OtherIndex = PayloadPtr->OtherIndex;
-	const auto bPreferEmpty = PayloadPtr->bPreferEmpty;
+    const auto OutfitContainer = PayloadPtr->OutfitContainer;
+    auto Part = PayloadPtr->Part;
+    auto OutfitIndex = PayloadPtr->OutfitIndex;
+    const auto OtherContainer = PayloadPtr->OtherContainer;
+    const auto OtherIndex = PayloadPtr->OtherIndex;
+    const auto bPreferEmpty = PayloadPtr->bPreferEmpty;
 
 #pragma region Validation
-	bool bOtherIndexValid;
-	const auto OtherCellInfo = OtherContainer->GetCell(OtherIndex, bOtherIndexValid);
+    bool bOtherIndexValid;
+    const auto OtherCellInfo = OtherContainer->GetCell(OtherIndex, bOtherIndexValid);
 
-	if (!bOtherIndexValid || !OtherCellInfo.Item.GetObject())
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!bOtherIndexValid || !OtherCellInfo.Item.GetObject())
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
-	const auto OutfitFragment = OtherCellInfo.Item->FindFragmentByClass<UDittoFragment_OutfitPart>();
+    const auto OutfitFragment = OtherCellInfo.Item->FindFragmentByClass<UDittoFragment_OutfitPart>();
 
-	if (!OutfitFragment)
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!OutfitFragment)
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 
-	if (Part.IsValid())
-	{
-		check(UBlueprintGameplayTagLibrary::HasAllTags( OutfitFragment->Part,Part,true));
-	}
+    if (Part.IsValid())
+    {
+        check(UBlueprintGameplayTagLibrary::HasAllTags( OutfitFragment->Part,Part,true));
+    }
 
-	Part = OutfitFragment->Part;
+    Part = OutfitFragment->Part;
 
-	if (OutfitIndex == INDEX_NONE && Part.IsValid())
-	{
-		TArray<int32> OutIndices;
-		int32 OutLast;
-		bool OutFound;
-		OutfitContainer->FindIndexByPart(Part, OutIndices, OutfitIndex, OutLast, OutFound);
+    if (OutfitIndex == INDEX_NONE && Part.IsValid())
+    {
+        TArray<int32> OutIndices;
+        int32 OutLast;
+        bool OutFound;
+        OutfitContainer->FindIndexByPart(Part, OutIndices, OutfitIndex, OutLast, OutFound);
 
-		if (bPreferEmpty && !OutfitContainer->CheckCellEmpty(OutfitIndex))
-		{
-			for (int32 OutIndex : OutIndices)
-			{
-				if (OutfitContainer->CheckCellEmpty(OutIndex))
-				{
-					OutfitIndex = OutIndex;
-					break;
-				}
-			}
-		}
-	}
+        if (bPreferEmpty && !OutfitContainer->CheckCellEmpty(OutfitIndex))
+        {
+            for (int32 OutIndex : OutIndices)
+            {
+                if (OutfitContainer->CheckCellEmpty(OutIndex))
+                {
+                    OutfitIndex = OutIndex;
+                    break;
+                }
+            }
+        }
+    }
 
-	if (!OutfitContainer->CheckIndexIsValid(OutfitIndex))
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    if (!OutfitContainer->CheckIndexIsValid(OutfitIndex))
+    {
+        MARK_TRANSACTION_FAILED_AND_RETURN();
+    }
 #pragma endregion
 
 
-	const auto SwapPayload = FInstancedStruct::Make(FCombeeTransactionPayload_Common{
-		.TargetContainer = OutfitContainer,
-		.TargetIndex = OutfitIndex,
-		.FromContainer = OtherContainer,
-		.FromIndex = OtherIndex,
-	});
+    const auto SwapPayload = FInstancedStruct::Make(FCombeeTransactionPayload_Common{
+        .TargetContainer = OutfitContainer,
+        .TargetIndex = OutfitIndex,
+        .FromContainer = OtherContainer,
+        .FromIndex = OtherIndex,
+    });
 
-	const auto SwapResult = ProcessTransaction<UCombeeTransaction_Swap>(SwapPayload);
-
-	if (SwapResult->State != ECombeeExecutionState::Success)
-	{
-		MARK_TRANSACTION_FAILED_AND_RETURN();
-	}
+    ProcessTransaction<UCombeeTransaction_Swap>(SwapPayload);
 }
