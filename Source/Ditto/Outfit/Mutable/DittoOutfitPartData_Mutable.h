@@ -16,5 +16,11 @@ struct DITTO_API FDittoOutfitPartData_Mutable
     TObjectPtr<UCustomizableSkeletalComponent> CustomizableComponent;
 
     UPROPERTY(BlueprintReadWrite)
-    FString PartName;    
+    TObjectPtr<USkeletalMeshComponent> MeshComponent;
+
+    UPROPERTY(BlueprintReadWrite)
+    FString PartName;
+
+    UPROPERTY(BlueprintReadWrite)
+    TSubclassOf<UAnimInstance> DefaultLink;
 };

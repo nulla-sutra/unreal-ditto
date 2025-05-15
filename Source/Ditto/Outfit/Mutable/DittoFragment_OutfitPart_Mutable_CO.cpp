@@ -30,6 +30,8 @@ void UDittoFragment_OutfitPart_Mutable_CO::TakeOff_Implementation(const FInstanc
         Coi->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
     };
+
+    Data->MeshComponent->LinkAnimClassLayers(Data->DefaultLink);
 }
 
 void UDittoFragment_OutfitPart_Mutable_CO::Wear_Implementation(const FInstancedStruct& PartData) const
@@ -53,6 +55,11 @@ void UDittoFragment_OutfitPart_Mutable_CO::Wear_Implementation(const FInstancedS
     {
         Coi->SetIntParameterSelectedOption(NameStr, ObjectName);
         Component->UpdateSkeletalMeshAsync();
+    }
+
+    if (LinkOverride)
+    {
+        Data->MeshComponent->LinkAnimClassLayers(LinkOverride);
     }
 }
 
