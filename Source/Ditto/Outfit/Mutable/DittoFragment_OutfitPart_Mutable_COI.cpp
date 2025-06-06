@@ -3,10 +3,11 @@
 
 #include "DittoFragment_OutfitPart_Mutable_COI.h"
 #include "DittoOutfitPartData_Mutable.h"
+#include "MuCO/CustomizableObject.h"
 #include "MuCO/CustomizableSkeletalComponent.h"
 
 #if WITH_EDITOR
-#include "MuCOE/Nodes/CustomizableObjectNode.h"
+// #include "MuCOE/Nodes/CustomizableObjectNode.h"
 #endif
 
 UDittoFragment_OutfitPart_Mutable_COI::UDittoFragment_OutfitPart_Mutable_COI()
@@ -83,7 +84,7 @@ void UDittoFragment_OutfitPart_Mutable_COI::PostEditChangeProperty(struct FPrope
                 {
                     goto clear_object_name;
                 }
-                const auto RootNode = Cast<UCustomizableObjectNode>(Graph->Nodes[0]);
+                const auto RootNode = (Graph->Nodes[0]);
                 if (!RootNode)
                 {
                     goto clear_object_name;

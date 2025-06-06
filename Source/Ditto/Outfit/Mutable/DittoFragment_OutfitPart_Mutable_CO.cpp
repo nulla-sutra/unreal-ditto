@@ -9,7 +9,7 @@
 #include "MuCO/CustomizableSkeletalComponent.h"
 
 #if WITH_EDITOR
-#include "MuCOE/Nodes/CustomizableObjectNode.h"
+// #include "MuCOE/Nodes/CustomizableObjectNode.h"
 #endif
 
 
@@ -84,7 +84,7 @@ void UDittoFragment_OutfitPart_Mutable_CO::PostEditChangeProperty(struct FProper
                 {
                     goto clear_object_name;
                 }
-                const auto RootNode = Cast<UCustomizableObjectNode>(Graph->Nodes[0]);
+                const auto RootNode = (Graph->Nodes[0]);
                 if (!RootNode)
                 {
                     goto clear_object_name;
