@@ -26,7 +26,7 @@ void UDittoFragment_OutfitPart_Mutable_COI::TakeOff_Implementation(const FInstan
     }
 
     const auto Coi = Component->GetCustomizableObjectInstance();
-    if (Coi && Coi->FindIntParameterNameIndex(Data->PartName) != INDEX_NONE)
+    if (Coi && Coi->ContainsIntParameter(Data->PartName))
     {
         Coi->SetDefaultValue(Data->PartName);
         Component->UpdateSkeletalMeshAsync();
@@ -53,7 +53,7 @@ void UDittoFragment_OutfitPart_Mutable_COI::Wear_Implementation(const FInstanced
     const auto Coi = Component->GetCustomizableObjectInstance();
     const auto NameStr = Data->PartName;
 
-    if (Coi && Coi->FindIntParameterNameIndex(NameStr) != INDEX_NONE)
+    if (Coi && Coi->ContainsIntParameter(NameStr))
     {
         Coi->SetIntParameterSelectedOption(NameStr, ObjectName);
         Coi->CopyParametersFromInstance(CustomizableObjectInstance);
