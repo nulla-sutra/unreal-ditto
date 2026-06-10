@@ -9,6 +9,7 @@
 #include "Combee/Core/Container/CombeeContainer.h"
 #include "Combee/Core/Item/CombeeItemInterface.h"
 #include "CombeeTransaction/Subsystem/CombeeTransactionSubsystem.h"
+#include "GameFramework/Controller.h"
 #include "CombeeUse/Usable/CombeeUsableTypes.h"
 
 FVoidCoroutine UDittoFragment_OutfitPart::OnUse(AController* const& Instigator,

@@ -4,6 +4,7 @@
 #include "DittoFragment_OutfitPart_Mutable_CO.h"
 
 #include "DittoOutfitPartData_Mutable.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Ditto/Outfit/DittoOutfits.h"
 #include "MuCO/CustomizableObject.h"
 #include "MuCO/CustomizableSkeletalComponent.h"
