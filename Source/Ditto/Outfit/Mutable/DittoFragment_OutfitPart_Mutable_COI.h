@@ -23,7 +23,6 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FString ObjectName;
 
-protected:
     virtual void TakeOff_Implementation(const FInstancedStruct& PartData) const override;
     virtual void Wear_Implementation(const FInstancedStruct& PartData) const override;
 

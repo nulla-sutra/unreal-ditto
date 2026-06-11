@@ -13,23 +13,22 @@ class UCustomizableObject;
 UCLASS(DisplayName="OutfitPart Mutable Customizable Object (Ditto)")
 class DITTO_API UDittoFragment_OutfitPart_Mutable_CO : public UDittoFragment_OutfitPart
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    TObjectPtr<UCustomizableObject> CustomizableObject;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UCustomizableObject> CustomizableObject;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    FString ObjectName;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FString ObjectName;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    TSubclassOf<UAnimInstance> LinkOverride;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UAnimInstance> LinkOverride;
 
-protected:
-    virtual void TakeOff_Implementation(const FInstancedStruct& PartData) const override;
-    virtual void Wear_Implementation(const FInstancedStruct& PartData) const override;
+	virtual void TakeOff_Implementation(const FInstancedStruct& PartData) const override;
+	virtual void Wear_Implementation(const FInstancedStruct& PartData) const override;
 
 #if WITH_EDITOR
-    virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 };
