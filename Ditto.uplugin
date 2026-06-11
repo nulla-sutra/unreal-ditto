@@ -32,11 +32,6 @@
             "Enabled": true
         },
         {
-            "Name": "Dogars",
-            "Optional": false,
-            "Enabled": true
-        },
-        {
             "Name": "Mutable",
             "Optional": false,
             "Enabled": true
